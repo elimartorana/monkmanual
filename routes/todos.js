@@ -16,9 +16,9 @@ router.delete('/deleteTodo', todosController.deleteTodo)
 
 // Testing PersonalGrowth
 
-router.post('/createTodo', todosController.createPersonalGrowth)
+router.post('/createPersonalGrowth', todosController.createPersonalGrowth)
 
-router.delete('/deleteTodo', todosController.deletePersonalGrowth)
+router.delete('/deletePersonalGrowth', todosController.deletePersonalGrowth)
 
 
 

@@ -10,6 +10,7 @@
 
 <body>
     <h1>Todos</h1>
+    <h2><%= user.userName %> has <%= left %> things left to do.</h2>
     <ul>
     <% todos.forEach( el => { %>
             <li class='todoItem' data-id='<%=el._id%>'>
@@ -18,15 +19,21 @@
             </li>
     <% }) %>    
     </ul>
-
-    <h2><%= user.userName %> has <%= left %> things left to do.</h2>
-
     <form action="/todos/createTodo" method='POST'>
         <input type="text" placeholder="Enter Todo Item" name='todoItem'>
         <input type="submit">
     </form>
 
-    <form action="/todos/createTodo" method='POST'>
+    <h1>Personal Growth</h1>
+    <ul>
+    <% todos.forEach( el => { %>
+        <li class='personalgrowthItem' data-id='<%=el._id%>'>
+                <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
+                <span class='del'> Delete </span>
+            </li>
+    <% }) %>     
+    </ul>
+    <form action="/todos/createPersonalGrowth" method='POST'>
         <input type="text" placeholder="Enter Personal Growth Item" name='PersonalGrowthItem'>
         <input type="submit">
     </form>
