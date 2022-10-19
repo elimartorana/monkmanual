@@ -1,5 +1,7 @@
 const Todo = require('../models/Todo')
 const PersonalGrowth = require('../models/PersonalGrowth')
+const RelationshipGrowth = require('../models/RelationshipGrowth')
+
 
 
 module.exports = {
@@ -7,22 +9,13 @@ module.exports = {
         console.log(req.user)
         try{
             const todoItems = await Todo.find({userId:req.user.id})
-            //const growthItems = await Todo.find({growth:req.user.id})
+            const personalGrowthItems = await PersonalGrowth.find({userId:req.user.id})
+            const relationshipGrowthItems = await RelationshipGrowth.find({userId:req.user.id})
             const itemsLeft = await Todo.countDocuments({userId:req.user.id,completed: false})
-            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user,
+            
+            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user, personalgrowths: personalGrowthItems, relationshipgrowths: relationshipGrowthItems
             });
              
-        }catch(err){
-            console.log(err)
-        }
-    },
-    createTodo: async (req, res)=>{
-        try{
-            await Todo.create({todo: req.body.todoItem,
-                   completed: false, userId: req.user.id})
-            // add new props
-            console.log('Todo has been added!')
-            res.redirect('/todos')
         }catch(err){
             console.log(err)
         }
@@ -49,6 +42,20 @@ module.exports = {
             console.log(err)
         }
     },
+   
+    // Todos
+
+    createTodo: async (req, res)=>{
+        try{
+            await Todo.create({todo: req.body.todoItem,
+                   completed: false, userId: req.user.id})
+            // add new props
+            console.log('Todo has been added!')
+            res.redirect('/todos')
+        }catch(err){
+            console.log(err)
+        }
+    },
     deleteTodo: async (req, res)=>{
         console.log(req.body.todoIdFromJSFile)
         try{
@@ -59,19 +66,9 @@ module.exports = {
             console.log(err)
         }
     },
-    // Testing PersonalGrowth
-    getPersonalGrowth: async (req,res)=>{
-        console.log(req.user)
-        try{
-            const PersonalGrowthItems = await PersonalGrowth.find({userId:req.user.id})
-            const itemsLeft = await PersonalGrowth.countDocuments({userId:req.user.id,completed: false})
-            res.render('todos.ejs', {PersonalGrowth: PersonalGrowthItems, left: itemsLeft, user: req.user,
-            });
-             
-        }catch(err){
-            console.log(err)
-        }
-    },
+    
+    // PersonalGrowth
+
     createPersonalGrowth: async (req, res)=>{
         try{
             await PersonalGrowth.create({PersonalGrowth: req.body.PersonalGrowthItem,
@@ -88,6 +85,30 @@ module.exports = {
         try{
             await PersonalGrowth.findOneAndDelete({_id:req.body.PersonalGrowthIdFromJSFile})
             console.log('Deleted PersonalGrowth')
+            res.json('Deleted It')
+        }catch(err){
+            console.log(err)
+        }
+    },
+    
+    // RelationshipGrowth
+
+    createRelationshipGrowth: async (req, res)=>{
+        try{
+            await RelationshipGrowth.create({RelationshipGrowth: req.body.RelationshipGrowthItem,
+                   completed: false, userId: req.user.id})
+            // add new props
+            console.log('RelationshipGrowth has been added!')
+            res.redirect('/todos')
+        }catch(err){
+            console.log(err)
+        }
+    },
+    deleteRelationshipGrowth: async (req, res)=>{
+        console.log(req.body.RelationshipGrowthIdFromJSFile)
+        try{
+            await RelationshipGrowth.findOneAndDelete({_id:req.body.RelationshipGrowthIdFromJSFile})
+            console.log('Deleted RelationshipGrowth')
             res.json('Deleted It')
         }catch(err){
             console.log(err)

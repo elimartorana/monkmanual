@@ -1,9 +1,15 @@
 const deleteBtn = document.querySelectorAll('.del')
+
 const todoItem = document.querySelectorAll('span.not')
 const todoComplete = document.querySelectorAll('span.completed')
+
 const PersonalGrowthItem = document.querySelectorAll('span.not')
 const PersonalGrowthComplete = document.querySelectorAll('span.completed')
 
+const RelationshipGrowthItem = document.querySelectorAll('span.not')
+const RelationshipComplete = document.querySelectorAll('span.completed')
+
+// Todos
 
 Array.from(deleteBtn).forEach((el)=>{
     el.addEventListener('click', deleteTodo)
@@ -71,22 +77,16 @@ async function markIncomplete(){
     }
 }
 
+// PersonalGrowth
+
 Array.from(deleteBtn).forEach((el)=>{
     el.addEventListener('click', deletePersonalGrowth)
-})
-
-Array.from(PersonalGrowthItem).forEach((el)=>{
-    el.addEventListener('click', markComplete)
-})
-
-Array.from(PersonalGrowthComplete).forEach((el)=>{
-    el.addEventListener('click', markIncomplete)
 })
 
 async function deletePersonalGrowth(){
     const PersonalGrowthId = this.parentNode.dataset.id
     try{
-        const response = await fetch('PersonalGrowths/deletePersonalGrowth', {
+        const response = await fetch('todos/deletePersonalGrowth', {
             method: 'delete',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
@@ -101,14 +101,21 @@ async function deletePersonalGrowth(){
     }
 }
 
-async function markComplete(){
-    const PersonalGrowthId = this.parentNode.dataset.id
+
+// RelationshipGrowth
+
+Array.from(deleteBtn).forEach((el)=>{
+    el.addEventListener('click', deleteRelationshipGrowth)
+})
+
+async function deleteRelationshipGrowth(){
+    const RelationshipGrowthId = this.parentNode.dataset.id
     try{
-        const response = await fetch('PersonalGrowths/markComplete', {
-            method: 'put',
+        const response = await fetch('todos/deleteRelationshipGrowth', {
+            method: 'delete',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                'PersonalGrowthIdFromJSFile': PersonalGrowthId
+                'RelationshipGrowthIdFromJSFile': RelationshipGrowthId
             })
         })
         const data = await response.json()
@@ -119,20 +126,3 @@ async function markComplete(){
     }
 }
 
-async function markIncomplete(){
-    const PersonalGrowthId = this.parentNode.dataset.id
-    try{
-        const response = await fetch('PersonalGrowths/markIncomplete', {
-            method: 'put',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-                'PersonalGrowthIdFromJSFile': PersonalGrowthId
-            })
-        })
-        const data = await response.json()
-        console.log(data)
-        location.reload()
-    }catch(err){
-        console.log(err)
-    }
-}

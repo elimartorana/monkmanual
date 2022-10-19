@@ -9,7 +9,9 @@
 </head>
 
 <body>
-    <h1>Todos</h1>
+    <h3> Week  <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></h2>
+    
+    <h1>Prepare - Priority</h1>
     <h2><%= user.userName %> has <%= left %> things left to do.</h2>
     <ul>
     <% todos.forEach( el => { %>
@@ -26,22 +28,32 @@
 
     <h1>Personal Growth</h1>
     <ul>
-    <% todos.forEach( el => { %>
-        <li class='personalgrowthItem' data-id='<%=el._id%>'>
-                <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
+    <% personalgrowths.forEach( el => { %>
+        <li class='PersonalGrowthItem' data-id='<%=el._id%>'>
+                <%= el.PersonalGrowth %>
                 <span class='del'> Delete </span>
-            </li>
-    <% }) %>     
+        </li>
+    <% }) %>
     </ul>
     <form action="/todos/createPersonalGrowth" method='POST'>
         <input type="text" placeholder="Enter Personal Growth Item" name='PersonalGrowthItem'>
         <input type="submit">
     </form>
 
-
-
+    <h1>Relationship Growth</h1>
+    <ul>
+    <% relationshipgrowths.forEach( el => { %>
+        <li class='RelationshipGrowthItem' data-id='<%=el._id%>'>
+                <%= el.RelationshipGrowth %>
+                <span class='del'> Delete </span>
+        </li>
+    <% }) %>
+    </ul>
+    <form action="/todos/createRelationshipGrowth" method='POST'>
+        <input type="text" placeholder="Enter Relationship Growth Item" name='RelationshipGrowthItem'>
+        <input type="submit">
+    </form>
     
-
     <a href="/logout">Logout</a>
 
     <script src="js/main.js"></script>
