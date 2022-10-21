@@ -1,10 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const todosController = require('../controllers/todos') 
-
-
-
+const todosController = require('../controllers/todos')
 const { ensureAuth } = require('../middleware/auth')
+
+//  Todo
 
 router.get('/', ensureAuth, todosController.getTodos)
 
@@ -16,16 +15,22 @@ router.put('/markIncomplete', todosController.markIncomplete)
 
 router.delete('/deleteTodo', todosController.deleteTodo)
 
+//  Priority
+
+router.post('/createPriority', todosController.createPriority)
+
+router.delete('/deletePriority', todosController.deletePriority)
+
 //  PersonalGrowth
 
 router.post('/createPersonalGrowth', todosController.createPersonalGrowth)
 
 router.delete('/deletePersonalGrowth', todosController.deletePersonalGrowth)
 
-//  RelationshipGrowth
+//  LookingForward
 
-router.post('/createRelationshipGrowth', todosController.createRelationshipGrowth)
+router.post('/createLookingForward', todosController.createLookingForward)
 
-router.delete('/deleteRelationshipGrowth', todosController.deleteRelationshipGrowth)
+router.delete('/deleteLookingForward', todosController.deleteLookingForward)
 
 module.exports = router

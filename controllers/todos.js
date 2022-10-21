@@ -1,6 +1,7 @@
+const Priority = require('../models/Priority')
 const Todo = require('../models/Todo')
 const PersonalGrowth = require('../models/PersonalGrowth')
-const RelationshipGrowth = require('../models/RelationshipGrowth')
+const LookingForward = require('../models/LookingForward')
 
 
 
@@ -8,12 +9,14 @@ module.exports = {
     getTodos: async (req,res)=>{
         console.log(req.user)
         try{
+            const priorityItems = await Priority.find({userId:req.user.id})
             const todoItems = await Todo.find({userId:req.user.id})
             const personalGrowthItems = await PersonalGrowth.find({userId:req.user.id})
-            const relationshipGrowthItems = await RelationshipGrowth.find({userId:req.user.id})
+            const lookingForwardItems = await LookingForward.find({userId:req.user.id})
+            
             const itemsLeft = await Todo.countDocuments({userId:req.user.id,completed: false})
             
-            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, user: req.user, personalgrowths: personalGrowthItems, relationshipgrowths: relationshipGrowthItems
+            res.render('todos.ejs', {priorities: priorityItems, user: req.user, todos: todoItems, left: itemsLeft, user: req.user, personalgrowths: personalGrowthItems, lookingforwards: lookingForwardItems, 
             });
              
         }catch(err){
@@ -43,7 +46,31 @@ module.exports = {
         }
     },
    
-    // Todos
+    // Priority
+
+    createPriority: async (req, res)=>{
+        try{
+            await Priority.create({Priority: req.body.PriorityItem,
+                   completed: false, userId: req.user.id})
+            // add new props
+            console.log('Priority has been added!')
+            res.redirect('/todos')
+        }catch(err){
+            console.log(err)
+        }
+    },
+    deletePriority: async (req, res)=>{
+        console.log(req.body.PriorityIdFromJSFile)
+        try{
+            await Priority.findOneAndDelete({_id:req.body.priorityIdFromJSFile})
+            console.log('Deleted Priority')
+            res.json('Deleted it')
+        }catch(err){
+            console.log(err)
+        }
+    },
+
+    // Todo
 
     createTodo: async (req, res)=>{
         try{
@@ -91,24 +118,24 @@ module.exports = {
         }
     },
     
-    // RelationshipGrowth
+    // LookingForward
 
-    createRelationshipGrowth: async (req, res)=>{
+    createLookingForward: async (req, res)=>{
         try{
-            await RelationshipGrowth.create({RelationshipGrowth: req.body.RelationshipGrowthItem,
+            await LookingForward.create({LookingForward: req.body.LookingForwardItem,
                    completed: false, userId: req.user.id})
             // add new props
-            console.log('RelationshipGrowth has been added!')
+            console.log('LookingForward has been added!')
             res.redirect('/todos')
         }catch(err){
             console.log(err)
         }
     },
-    deleteRelationshipGrowth: async (req, res)=>{
-        console.log(req.body.RelationshipGrowthIdFromJSFile)
+    deleteLookingForward: async (req, res)=>{
+        console.log(req.body.LookingForwardGrowthIdFromJSFile)
         try{
-            await RelationshipGrowth.findOneAndDelete({_id:req.body.RelationshipGrowthIdFromJSFile})
-            console.log('Deleted RelationshipGrowth')
+            await LookingForward.findOneAndDelete({_id:req.body.LookingForwardIdFromJSFile})
+            console.log('Deleted LookingForward')
             res.json('Deleted It')
         }catch(err){
             console.log(err)

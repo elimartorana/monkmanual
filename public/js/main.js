@@ -1,15 +1,42 @@
 const deleteBtn = document.querySelectorAll('.del')
 
+const priorityItem = document.querySelectorAll('span.not')
+const priorityComplete = document.querySelectorAll('span.completed')
+
 const todoItem = document.querySelectorAll('span.not')
 const todoComplete = document.querySelectorAll('span.completed')
 
 const PersonalGrowthItem = document.querySelectorAll('span.not')
 const PersonalGrowthComplete = document.querySelectorAll('span.completed')
 
-const RelationshipGrowthItem = document.querySelectorAll('span.not')
-const RelationshipComplete = document.querySelectorAll('span.completed')
+const LookingForwardItem = document.querySelectorAll('span.not')
+const LookingForwardComplete = document.querySelectorAll('span.completed')
 
-// Todos
+// Priority
+
+Array.from(deleteBtn).forEach((el)=>{
+    el.addEventListener('click', deletePriority)
+})
+
+async function deletePriority(){
+    const PriorityId = this.parentNode.dataset.id
+    try{
+        const response = await fetch('todos/deletePriority', {
+            method: 'delete',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                'PriorityIdFromJSFile': PriorityId
+            })
+        })
+        const data = await response.json()
+        console.log(data)
+        location.reload()
+    }catch(err){
+        console.log(err)
+    }
+}
+
+// Todo
 
 Array.from(deleteBtn).forEach((el)=>{
     el.addEventListener('click', deleteTodo)
@@ -102,20 +129,20 @@ async function deletePersonalGrowth(){
 }
 
 
-// RelationshipGrowth
+// LookingForward
 
 Array.from(deleteBtn).forEach((el)=>{
-    el.addEventListener('click', deleteRelationshipGrowth)
+    el.addEventListener('click', deleteLookingForward)
 })
 
-async function deleteRelationshipGrowth(){
-    const RelationshipGrowthId = this.parentNode.dataset.id
+async function deleteLookingForward(){
+    const LookingForwardId = this.parentNode.dataset.id
     try{
-        const response = await fetch('todos/deleteRelationshipGrowth', {
+        const response = await fetch('todos/deleteLookingForward', {
             method: 'delete',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                'RelationshipGrowthIdFromJSFile': RelationshipGrowthId
+                'LookingForwardIdFromJSFile': LookingForwardId
             })
         })
         const data = await response.json()

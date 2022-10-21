@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-const RelationshipGrowthSchema = new mongoose.Schema({
-  RelationshipGrowth: {
+const LookingForwardSchema = new mongoose.Schema({
+  LookingForward: {
     type: String,
     required: true,
   },
@@ -20,4 +20,4 @@ const RelationshipGrowthSchema = new mongoose.Schema({
   } */
 })
 
-module.exports = mongoose.model('RelationshipGrowth', RelationshipGrowthSchema)
+module.exports = mongoose.model('LookingForward', LookingForwardSchema)

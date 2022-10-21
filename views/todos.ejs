@@ -9,9 +9,23 @@
 </head>
 
 <body>
-    <h3> Week  <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></h2>
+    <h3> Date:  <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit'}).format(new Date()) %></h2>
     
     <h1>Prepare - Priority</h1>
+    <ul>
+        <% priorities.forEach( el => { %>
+            <li class='PriorityItem' data-id='<%=el._id%>'>
+                <%= el.Priority %>
+                <span class='del'> Delete </span>
+            </li>
+        <% }) %>
+    </ul> 
+        <form action="/todos/createPriority" method='POST'>
+        <input type="text" placeholder="Today's Priority" name='PriorityItem'>
+        <input type="submit">
+    </form>
+
+    <h1>TO-DO</h1>
     <h2><%= user.userName %> has <%= left %> things left to do.</h2>
     <ul>
     <% todos.forEach( el => { %>
@@ -40,17 +54,17 @@
         <input type="submit">
     </form>
 
-    <h1>Relationship Growth</h1>
+    <h1>I'm Looking Forward To</h1>
     <ul>
-    <% relationshipgrowths.forEach( el => { %>
-        <li class='RelationshipGrowthItem' data-id='<%=el._id%>'>
-                <%= el.RelationshipGrowth %>
-                <span class='del'> Delete </span>
+    <% lookingforwards.forEach( el => { %>
+        <li class='LookingForwardItem' data-id='<%=el._id%>'>
+            <%= el.LookingForward %>
+            <span class='del'> Delete </span>
         </li>
     <% }) %>
-    </ul>
-    <form action="/todos/createRelationshipGrowth" method='POST'>
-        <input type="text" placeholder="Enter Relationship Growth Item" name='RelationshipGrowthItem'>
+    </ul> 
+    <form action="/todos/createLookingForward" method='POST'>
+        <input type="text" placeholder="I'm Looking Forward To" name='LookingForwardItem'>
         <input type="submit">
     </form>
     
