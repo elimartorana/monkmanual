@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-const PersonalGrowthSchema = new mongoose.Schema({
-  PersonalGrowth: {
+const GratefulSchema = new mongoose.Schema({
+  Grateful: {
     type: String,
     required: true,
   },
@@ -20,4 +20,4 @@ const PersonalGrowthSchema = new mongoose.Schema({
   } */
 })
 
-module.exports = mongoose.model('PersonalGrowth', PersonalGrowthSchema)
+module.exports = mongoose.model('Grateful', GratefulSchema)

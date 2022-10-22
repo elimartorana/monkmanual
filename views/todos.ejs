@@ -40,17 +40,17 @@
         <input type="submit">
     </form>
 
-    <h1>Personal Growth</h1>
+    <h1>I am Grateful For</h1>
     <ul>
-    <% personalgrowths.forEach( el => { %>
-        <li class='PersonalGrowthItem' data-id='<%=el._id%>'>
-                <%= el.PersonalGrowth %>
+    <% gratefuls.forEach( el => { %>
+        <li class='Grateful' data-id='<%=el._id%>'>
+                <%= el.Grateful %>
                 <span class='del'> Delete </span>
         </li>
     <% }) %>
     </ul>
-    <form action="/todos/createPersonalGrowth" method='POST'>
-        <input type="text" placeholder="Enter Personal Growth Item" name='PersonalGrowthItem'>
+    <form action="/todos/createGrateful" method='POST'>
+        <input type="text" placeholder="Enter Personal Growth Item" name='GratefulItem'>
         <input type="submit">
     </form>
 
@@ -68,6 +68,12 @@
         <input type="submit">
     </form>
     
+    <h1>Ways I Can Give</h1>
+    <h1>Highlights</h1>
+    <h1>I Was At My Best When</h1>
+    <h1>One Way I can Improve Tomorrow</h1>
+
+
     <a href="/logout">Logout</a>
 
     <script src="js/main.js"></script>

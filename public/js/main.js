@@ -6,8 +6,8 @@ const priorityComplete = document.querySelectorAll('span.completed')
 const todoItem = document.querySelectorAll('span.not')
 const todoComplete = document.querySelectorAll('span.completed')
 
-const PersonalGrowthItem = document.querySelectorAll('span.not')
-const PersonalGrowthComplete = document.querySelectorAll('span.completed')
+const gratefulItem = document.querySelectorAll('span.not')
+const gratefulComplete = document.querySelectorAll('span.completed')
 
 const LookingForwardItem = document.querySelectorAll('span.not')
 const LookingForwardComplete = document.querySelectorAll('span.completed')
@@ -19,13 +19,13 @@ Array.from(deleteBtn).forEach((el)=>{
 })
 
 async function deletePriority(){
-    const PriorityId = this.parentNode.dataset.id
+    const priorityId = this.parentNode.dataset.id
     try{
         const response = await fetch('todos/deletePriority', {
             method: 'delete',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                'PriorityIdFromJSFile': PriorityId
+                'priorityIdFromJSFile': priorityId
             })
         })
         const data = await response.json()
@@ -104,20 +104,20 @@ async function markIncomplete(){
     }
 }
 
-// PersonalGrowth
+// Grateful
 
 Array.from(deleteBtn).forEach((el)=>{
-    el.addEventListener('click', deletePersonalGrowth)
+    el.addEventListener('click', deletegrateful)
 })
 
-async function deletePersonalGrowth(){
-    const PersonalGrowthId = this.parentNode.dataset.id
+async function deletegrateful(){
+    const gratefulId = this.parentNode.dataset.id
     try{
-        const response = await fetch('todos/deletePersonalGrowth', {
+        const response = await fetch('todos/deletegrateful', {
             method: 'delete',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                'PersonalGrowthIdFromJSFile': PersonalGrowthId
+                'gratefulIdFromJSFile': gratefulId
             })
         })
         const data = await response.json()

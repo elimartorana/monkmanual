@@ -21,11 +21,11 @@ router.post('/createPriority', todosController.createPriority)
 
 router.delete('/deletePriority', todosController.deletePriority)
 
-//  PersonalGrowth
+//  Grateful
 
-router.post('/createPersonalGrowth', todosController.createPersonalGrowth)
+router.post('/createGrateful', todosController.createGrateful)
 
-router.delete('/deletePersonalGrowth', todosController.deletePersonalGrowth)
+router.delete('/deleteGrateful', todosController.deleteGrateful)
 
 //  LookingForward
 

@@ -1,6 +1,6 @@
 const Priority = require('../models/Priority')
 const Todo = require('../models/Todo')
-const PersonalGrowth = require('../models/PersonalGrowth')
+const Grateful = require('../models/Grateful')
 const LookingForward = require('../models/LookingForward')
 
 
@@ -11,12 +11,12 @@ module.exports = {
         try{
             const priorityItems = await Priority.find({userId:req.user.id})
             const todoItems = await Todo.find({userId:req.user.id})
-            const personalGrowthItems = await PersonalGrowth.find({userId:req.user.id})
+            const gratefulItems = await Grateful.find({userId:req.user.id})
             const lookingForwardItems = await LookingForward.find({userId:req.user.id})
             
             const itemsLeft = await Todo.countDocuments({userId:req.user.id,completed: false})
             
-            res.render('todos.ejs', {priorities: priorityItems, user: req.user, todos: todoItems, left: itemsLeft, user: req.user, personalgrowths: personalGrowthItems, lookingforwards: lookingForwardItems, 
+            res.render('todos.ejs', {priorities: priorityItems, user: req.user, todos: todoItems, left: itemsLeft, user: req.user, gratefuls: gratefulItems, lookingforwards: lookingForwardItems, 
             });
              
         }catch(err){
@@ -94,24 +94,24 @@ module.exports = {
         }
     },
     
-    // PersonalGrowth
+    // Grateful
 
-    createPersonalGrowth: async (req, res)=>{
+    createGrateful: async (req, res)=>{
         try{
-            await PersonalGrowth.create({PersonalGrowth: req.body.PersonalGrowthItem,
+            await Grateful.create({Grateful: req.body.GratefulItem,
                    completed: false, userId: req.user.id})
             // add new props
-            console.log('PersonalGrowth has been added!')
+            console.log('Grateful has been added!')
             res.redirect('/todos')
         }catch(err){
             console.log(err)
         }
     },
-    deletePersonalGrowth: async (req, res)=>{
-        console.log(req.body.PersonalGrowthIdFromJSFile)
+    deleteGrateful: async (req, res)=>{
+        console.log(req.body.GratefulIdFromJSFile)
         try{
-            await PersonalGrowth.findOneAndDelete({_id:req.body.PersonalGrowthIdFromJSFile})
-            console.log('Deleted PersonalGrowth')
+            await Grateful.findOneAndDelete({_id:req.body.GratefulIdFromJSFile})
+            console.log('Deleted Grateful')
             res.json('Deleted It')
         }catch(err){
             console.log(err)
